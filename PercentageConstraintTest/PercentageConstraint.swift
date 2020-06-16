@@ -21,12 +21,11 @@ class PercentageConstraint: NSLayoutConstraint {
         super.awakeFromNib()
         
         guard marginPercent > 0 else { return }
-        NotificationCenter.default.addObserver(self, selector: #selector(layoutDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(layoutDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
-    
     // Re-calculate constant based on orientation and percentage.
-    func layoutDidChange() {
+    @objc func layoutDidChange() {
         guard marginPercent > 0 else { return }
         
         switch firstAttribute {
@@ -42,6 +41,4 @@ class PercentageConstraint: NSLayoutConstraint {
         guard marginPercent > 0 else { return }
         NotificationCenter.default.removeObserver(self)
     }
-
-    
 }
